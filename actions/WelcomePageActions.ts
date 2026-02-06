@@ -1,5 +1,5 @@
 import { Page, expect } from "@playwright/test";
-import WelcomePage from "../page-objects/WelcomePage";
+import { WelcomePage } from "../page-objects/WelcomePage";
 
 class WelcomePageActions {
     readonly welcomePage: WelcomePage;
@@ -13,5 +13,3 @@ class WelcomePageActions {
         await expect(this.welcomePage.page).toHaveURL('https://demo.suiteondemand.com/index.php?module=Home&action=Demo');
     }
 }
-
-export default WelcomePageActions;

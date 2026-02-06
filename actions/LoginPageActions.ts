@@ -1,6 +1,6 @@
 import { Page, expect } from "@playwright/test";
 import LoginPage from "../page-objects/LoginPage";
-import WelcomePage from "../page-objects/WelcomePage";
+import { WelcomePage } from "../page-objects/WelcomePage";
 
 class LoginPageActions {
     readonly loginPage: LoginPage;
