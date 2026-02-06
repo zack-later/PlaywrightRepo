@@ -1,19 +1,19 @@
 import { test } from "@playwright/test";
-import LoginPageActions from "../actions/LoginPageActions"; 
-import WelcomePageActions from "../actions/WelcomePageActions";
+import { LoginPage } from "../page-objects/LoginPage";
+import { WelcomePage } from "../page-objects/WelcomePage";
 
 test.describe('Login Tests', () => {
-    let loginPageActions: LoginPageActions;
-    let welcomePageActions: WelcomePageActions;
+    let loginPage: LoginPage;
+    let welcomePage: WelcomePage;
 
     test.beforeEach(async ({ page }) => {
-        loginPageActions = new LoginPageActions(page);
-        welcomePageActions = new WelcomePageActions(page);
-        await loginPageActions.goto();
+        loginPage = new LoginPage(page);
+        welcomePage = new WelcomePage(page);
+        await loginPage.goto();
     });
 
     test('User can log in with valid credentials', async () => {
-        await loginPageActions.login();
-        await welcomePageActions.goto();
+        await loginPage.login();
+        await welcomePage.goto();
     });
 });
