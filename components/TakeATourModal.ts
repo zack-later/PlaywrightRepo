@@ -38,7 +38,6 @@ export class TakeATourModal {
         await this.takeATourStep2();
         await this.takeATourStep3();
         await this.takeATourStep4();
-        await this.takeATourFinalStep();
         return this.takeATourFinalStep();
     }
 
