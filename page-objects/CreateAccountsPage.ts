@@ -3,10 +3,18 @@ import { Locator, Page, expect } from "@playwright/test";
 export class CreateAccountsPage {
     private readonly saveButton: Locator;
     private readonly cancelButton: Locator
+    private readonly url = 'https://demo.suiteondemand.com/index.php?module=Accounts&action=EditView&return_module=Accounts&return_action=DetailView';
 
     constructor(private page: Page) {
         this.saveButton = page.getByRole('button', { name: 'Save' });
         this.cancelButton = page.getByRole('button', { name: 'Cancel' });
     }
 
+    async clickSave() {
+        await this.saveButton.click();
+    }
+
+    async clickCancel() {
+        await this.cancelButton.click();
+    }
 }

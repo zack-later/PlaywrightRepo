@@ -21,5 +21,6 @@ test.describe('Login Tests', () => {
         await welcomePage.clickTakeAQuickTour();
         await takeATourModal.waitForModal();
         await takeATourModal.clickThroughTourSteps();
+        await welcomePage.selectCreateOption('Create Accounts');
     });
 });
