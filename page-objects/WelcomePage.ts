@@ -4,10 +4,10 @@ import { link } from "node:fs";
 
 
 export class WelcomePage {
-    readonly welcomeMessage: Locator;
-    readonly takeAQuickTourButton: Locator;
+    private readonly welcomeMessage: Locator;
+    private readonly takeAQuickTourButton: Locator;
     
-    readonly url = 'https://demo.suiteondemand.com/index.php?module=Home&action=Demo';
+    private readonly url = 'https://demo.suiteondemand.com/index.php?module=Home&action=Demo';
 
     constructor(private page: Page) {
         this.page = page;

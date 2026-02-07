@@ -2,10 +2,10 @@ import { Locator, Page, expect } from "@playwright/test";
 import { WelcomePage } from "./WelcomePage";
 
 export class LoginPage {
-    readonly username: Locator;
-    readonly password: Locator;
-    readonly loginButton: Locator;
-    readonly url = 'https://demo.suiteondemand.com/index.php?module=Users&action=Login'; 
+    private readonly username: Locator;
+    private readonly password: Locator;
+    private readonly loginButton: Locator;
+    private readonly url = 'https://demo.suiteondemand.com/index.php?module=Users&action=Login'; 
 
     constructor(private page: Page) {
         this.page = page;
