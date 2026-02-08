@@ -32,12 +32,6 @@ export class WelcomePage {
         return new TakeATourModal(this.page);
     }
 
-    // async selectCreateOption(optionName: string) {
-    //     await this.createDropdown.click(); // open the dropdown
-    //     const optionToClick = this.createDropdownOptions.filter({ hasText: optionName }).first();
-    //     await expect(optionToClick).toBeVisible();
-    //     await optionToClick.click();
-    // }
     async selectCreateOption<T extends CreateOption>(
     optionName: T
   ): Promise<InstanceType<typeof createPageFactory[T]>> {
@@ -53,9 +47,11 @@ export class WelcomePage {
       option.click(),
     ]);
 
-    // 🔑 THIS is where the factory is used
+    //THIS is where the factory is used
     const PageClass = createPageFactory[optionName];
-    const nextPage = new PageClass(this.page);
+    const nextPage = new PageClass(this.page) as InstanceType<
+      (typeof createPageFactory)[T]
+    >;
 
     await nextPage.assertLoaded();
     return nextPage;

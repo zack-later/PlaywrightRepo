@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { WelcomePage } from "./WelcomePage";
+import { users } from "../test-data/users";
 
 export class LoginPage {
     private readonly username: Locator;
@@ -19,8 +20,7 @@ export class LoginPage {
         await expect(this.page).toHaveURL(this.url);
     }
 
-    
-    async login(username: string = 'will', password: string = 'will'): Promise<WelcomePage> {
+    async login(username: string = users.username, password: string = users.password): Promise<WelcomePage> {
         await this.username.fill(username);
         await this.password.fill(password);
         await this.loginButton.click();
