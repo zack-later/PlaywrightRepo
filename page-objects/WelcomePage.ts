@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { TakeATourModal } from "../components/TakeATourModal";
+import { createPageFactory, CreateOption } from "../factory/PageFactory";
 
 export class WelcomePage {
     private readonly welcomeMessage: Locator;
@@ -13,8 +14,8 @@ export class WelcomePage {
         this.page = page;
         this.welcomeMessage = page.getByRole('heading', { name: 'Welcome to the SuiteCRM 7 Demo' });
         this.takeAQuickTourButton = page.getByRole('link', { name: 'Take a quick tour' });
-        this.createDropdown = page.locator('.desktop-bar #quickcreatetop');
-        this.createDropdownOptions = page.locator('ul.dropdown-menu li a');
+        this.createDropdown = page.locator('.desktop-bar #quickcreatetop'); //a.dropdown-toggle
+        this.createDropdownOptions = this.createDropdown.locator('ul.dropdown-menu li a');
     }
 
     async assertWelcomePage() {
@@ -31,10 +32,32 @@ export class WelcomePage {
         return new TakeATourModal(this.page);
     }
 
-    async selectCreateOption(optionName: string) {
-        await this.createDropdown.click(); // open the dropdown
-        const optionToClick = this.createDropdownOptions.filter({ hasText: optionName }).first();
-        await expect(optionToClick).toBeVisible();
-        await optionToClick.click();
-    }
+    // async selectCreateOption(optionName: string) {
+    //     await this.createDropdown.click(); // open the dropdown
+    //     const optionToClick = this.createDropdownOptions.filter({ hasText: optionName }).first();
+    //     await expect(optionToClick).toBeVisible();
+    //     await optionToClick.click();
+    // }
+    async selectCreateOption<T extends CreateOption>(
+    optionName: T
+  ): Promise<InstanceType<typeof createPageFactory[T]>> {
+
+    await this.createDropdown.click();
+
+    const option = this.createDropdownOptions
+      .filter({ hasText: optionName })
+      .first();
+
+    await Promise.all([
+      this.page.waitForLoadState('domcontentloaded'),
+      option.click(),
+    ]);
+
+    // 🔑 THIS is where the factory is used
+    const PageClass = createPageFactory[optionName];
+    const nextPage = new PageClass(this.page);
+
+    await nextPage.assertLoaded();
+    return nextPage;
+  }
 }
