@@ -11,10 +11,9 @@ export class WelcomePage {
     private readonly url = 'https://demo.suiteondemand.com/index.php?module=Home&action=Demo';
 
     constructor(private page: Page) {
-        this.page = page;
-        this.welcomeMessage = page.getByRole('heading', { name: 'Welcome to the SuiteCRM 7 Demo' });
-        this.takeAQuickTourButton = page.getByRole('link', { name: 'Take a quick tour' });
-        this.createDropdown = page.locator('.desktop-bar #quickcreatetop'); //a.dropdown-toggle
+        this.welcomeMessage = this.page.getByRole('heading', { name: 'Welcome to the SuiteCRM 7 Demo' });
+        this.takeAQuickTourButton = this.page.getByRole('link', { name: 'Take a quick tour' });
+        this.createDropdown = this.page.locator('.desktop-bar #quickcreatetop'); //a.dropdown-toggle
         this.createDropdownOptions = this.createDropdown.locator('ul.dropdown-menu li a');
     }
 
