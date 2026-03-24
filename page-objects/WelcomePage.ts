@@ -55,4 +55,12 @@ export class WelcomePage {
     await nextPage.assertLoaded();
     return nextPage;
   }
+
+  /** Opens Create menu and selects every option wired in PageFactory; each target page must assertLoaded. */
+  async selectAllOptions(): Promise<void> {
+    const options = Object.keys(createPageFactory) as CreateOption[];
+    for (const option of options) {
+      await this.selectCreateOption(option);
+    }
+  }
 }
